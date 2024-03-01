@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>PORT List</title>
+    <style>
+        body {
+            background-color: #ffffcc; /* Light yellow background color */
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        th, td {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+        th {
+            background-color: #4CAF50; /* Green background color */
+            color: white; /* White text color */
+        }
+    </style>
+</head>
+<body>
+    <h1>PORT List</h1>
+    <form id="filterForm">
+        <label for="lineFilter">Filter by Line:</label>
+        <select id="line">
+            <option value="">All</option>
+            <option value="Midland">Midland</option>
+            <option value="Bangalore">Bangalore</option>
+            <!-- Add more options as needed -->
+        </select>
+
+        <button type="button" onclick="applyFilters()">Apply Filters</button>
+    </form>
+
+    <table id="portTable">
+        <thead>
+            <tr>
+                <th>field1</th>
+                <th>field2</th>
+                <th>field3</th>
+                
+            </tr>
+        </thead>
+        <tbody>
+            {% for port_instance in port_instances %}
+            <tr>
+                <td>{{ port_instance.field1 }}</td>
+                <td>{{ port_instance.field2 }}</td>
+                <td>{{ port_instance.field3 }}</td>
+                
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <script>
+        function applyFilters() {
+            var lineFilter = document.getElementById("line").value;
+    
+            var tableRows = document.querySelectorAll("#portTable tbody tr");
+            tableRows.forEach(function(row) {
+                var line = row.querySelector("td:first-child").textContent;
+                if (lineFilter !== "" && line !== lineFilter) {
+                    row.style.display = "none";
+                } else {
+                    row.style.display = "";
+                }
+            });
+        }
+    </script>
+    
+</body>
+</html>
